@@ -2019,8 +2019,14 @@ void dooble_settings::restore(bool read_database)
     (s_settings.value("application_font", false).toBool());
   m_ui.automatic_loading_of_images->setChecked
     (s_settings.value("auto_load_images", true).toBool());
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 10, 0))
   m_ui.back_forward_cache->setChecked
     (s_settings.value("back_forward_cache", false).toBool());
+#else
+  m_ui.back_forward_cache->setChecked(false);
+  m_ui.back_forward_cache->setEnabled(false);
+  m_ui.back_forward_cache->setToolTip(tr("Requires Qt 6.10 or newer."));
+#endif
   m_ui.block_third_party_cookies->setChecked
     (s_settings.value("block_third_party_cookies", true).toBool());
   m_ui.browsing_history->setValue

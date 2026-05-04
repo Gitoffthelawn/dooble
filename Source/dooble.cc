@@ -1982,6 +1982,12 @@ void dooble::prepare_private_web_engine_profile_settings(void)
      QWebEngineSettings::defaultSettings()->
      testAttribute(QWebEngineSettings::XSSAuditingEnabled));
 #else
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 10, 0))
+  m_web_engine_profile->settings()->setAttribute
+    (QWebEngineSettings::BackForwardCacheEnabled,
+     s_default_web_engine_profile->settings()->
+     testAttribute(QWebEngineSettings::BackForwardCacheEnabled));
+#endif
   m_web_engine_profile->settings()->setAttribute
     (QWebEngineSettings::DnsPrefetchEnabled,
      s_default_web_engine_profile->settings()->
