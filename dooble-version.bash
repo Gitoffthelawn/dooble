@@ -10,12 +10,12 @@ then
     exit 1
 fi
 
-for file in Distributions/*/control
+for file in "Distributions/*/control"
 do
     sed -i "s/Version: .*/Version: $VERSION/" $file
 done
 
-for file in Distributions/build*
+for file in "Distributions/build*"
 do
     sed -i \
     "s/Dooble-[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+/Dooble-$VERSION/" \
