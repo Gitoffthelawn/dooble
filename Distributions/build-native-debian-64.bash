@@ -51,7 +51,7 @@ if [ "$(uname -m)" = "aarch64" ]
 then
     cp -pr Distributions/PiOS dooble-debian.d/DEBIAN
 else
-    cp -pr Distributions/UBUNTU-NATIVE dooble-debian.d/DEBIAN
+    cp -pr Distributions/KUBUNTU-NATIVE dooble-debian.d/DEBIAN
 fi
 
 cp -r ./opt/dooble dooble-debian.d/opt/.
@@ -61,10 +61,10 @@ cp dooble.sh dooble-debian.d/usr/bin/dooble
 if [ "$(uname -m)" = "aarch64" ]
 then
     fakeroot dpkg-deb --build dooble-debian.d \
-	     Dooble-2026.05.15_native_arm64.deb
+	     Dooble-2026.05.15_PiOS_arm64.deb
 else
     fakeroot dpkg-deb --build dooble-debian.d \
-	     Dooble-2026.05.15_native_amd64.deb
+	     Dooble-2026.05.15_Kubuntu_amd64.deb
 fi
 
 make distclean
