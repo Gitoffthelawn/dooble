@@ -207,6 +207,14 @@ dictoolbuild.output = $${WEB_DICTIONARIES}/${QMAKE_FILE_BASE}.bdic
 
 build_deb.bash =
 
+freebsd-* {
+exists(/usr/local/include/gpgme.h) {
+DEFINES += DOOBLE_PEEKABOO
+LIBS += -lgpgme
+message("Discovered gpgme.h. Peekaboo activated!")
+}
+}
+
 linux-* {
 exists(/usr/bin/dpkg-deb) {
 }
@@ -214,6 +222,7 @@ exists(/usr/bin/dpkg-deb) {
 exists(/usr/include/gpgme.h) {
 DEFINES += DOOBLE_PEEKABOO
 LIBS += -lgpgme
+message("Discovered gpgme.h. Peekaboo activated!")
 }
 }
 
