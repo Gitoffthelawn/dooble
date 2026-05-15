@@ -198,7 +198,7 @@ dict.files += $$DICTIONARIES/$${base_path}.dic
 }
 }
 
-dictoolbuild.CONFIG = no_link target_predeps
+dictoolbuild.CONFIG = no_clean no_link target_predeps
 dictoolbuild.commands = $${CONVERT_DICT} ${QMAKE_FILE_IN} ${QMAKE_FILE_OUT}
 dictoolbuild.depends = ${QMAKE_FILE_PATH}/${QMAKE_FILE_BASE}.aff
 dictoolbuild.input = dict.files
