@@ -358,10 +358,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wno-int-in-bool-context
 QMAKE_CXXFLAGS_RELEASE -= -O2
 }
 
-QMAKE_DISTCLEAN += -r qtwebengine_dictionaries \
-                   .qmake.cache \
-                   .qmake.stash \
-                   Temporary
+QMAKE_DISTCLEAN += -r .qmake.cache .qmake.stash Temporary
 
 isEmpty(CONVERT_DICT) {
 } else {
