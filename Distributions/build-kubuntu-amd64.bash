@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Alexis Megas.
+# Kubuntu 24.04.
 
 if [ ! -e "~/Qt/6.8.3/gcc_64/lib" ]
 then
@@ -83,7 +84,7 @@ mkdir -p dooble-debian.d/usr/bin
 mkdir -p dooble-debian.d/usr/share/applications
 mkdir -p dooble-debian.d/usr/share/pixmaps
 cp -p Distributions/dooble.desktop dooble-debian.d/usr/share/applications/.
-cp -pr Distributions/UBUNTU-24.04 dooble-debian.d/DEBIAN
+cp -pr Distributions/KUBUNTU-24.04 dooble-debian.d/DEBIAN
 cp -r ./opt/dooble dooble-debian.d/opt/.
 cp Icons/Logo/dooble.png dooble-debian.d/usr/share/pixmaps/.
 cp dooble.sh dooble-debian.d/usr/bin/dooble
