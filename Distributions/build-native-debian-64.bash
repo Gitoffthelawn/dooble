@@ -47,9 +47,11 @@ mkdir -p dooble-debian.d/usr/share/applications
 mkdir -p dooble-debian.d/usr/share/pixmaps
 cp -p Distributions/dooble.desktop dooble-debian.d/usr/share/applications/.
 
-if [ "$(uname -m)" = "aarch64" ]
+architecture="$(dpkg --print-architecture)"
+
+if [ $architecture = "arm64" ]
 then
-    cp -pr Distributions/PiOS dooble-debian.d/DEBIAN
+    cp -pr Distributions/PIOS64 dooble-debian.d/DEBIAN
 else
     cp -pr Distributions/KUBUNTU-NATIVE dooble-debian.d/DEBIAN
 fi
@@ -58,7 +60,7 @@ cp -r ./opt/dooble dooble-debian.d/opt/.
 cp Icons/Logo/dooble.png dooble-debian.d/usr/share/pixmaps/.
 cp dooble.sh dooble-debian.d/usr/bin/dooble
 
-if [ "$(uname -m)" = "aarch64" ]
+if [ $architecture = "arm64" ]
 then
     fakeroot dpkg-deb --build dooble-debian.d \
 	     Dooble-2026.05.15_PiOS_arm64.deb
