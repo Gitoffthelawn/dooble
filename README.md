@@ -6,7 +6,7 @@ Dooble is a minimal, scientific, and stable Web browser.
 <li>Apple Silicon.</li>
 <li>Application lock.</li>
 <li>Basic themes.</li>
-<li>Compact. 43,682 lines of source!</li>
+<li>Compact. 46,147 lines of source!</li>
 <li>Cookie consumer.</li>
 <li>Custom search engines.</li>
 <li>Custom style sheets.</li>
