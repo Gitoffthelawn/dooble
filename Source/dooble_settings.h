@@ -202,6 +202,7 @@ class dooble_settings: public dooble_main_window
   void slot_reset_credentials(void);
   void slot_save_credentials(void);
   void slot_select_application_font(void);
+  void slot_select_directory(void);
   void slot_user_agent_item_changed(QTableWidgetItem *item);
   void slot_web_engine_settings_item_changed(QTableWidgetItem *item);
 

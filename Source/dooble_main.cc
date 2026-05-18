@@ -27,6 +27,7 @@
 
 #include <QDir>
 #include <QProcess>
+#include <QSettings>
 #include <QSplashScreen>
 #include <QWebEngineProfile>
 #include <QWebEngineSettings>
@@ -91,6 +92,15 @@ static void signal_handler(int signal_number)
 
 int main(int argc, char *argv[])
 {
+  qputenv
+    ("QTWEBENGINE_DICTIONARIES_PATH",
+     QSettings(dooble_settings::setting("home_path").toString() +
+	       QDir::separator() +
+	       "dooble.ini",
+	       QSettings::IniFormat).
+     value("QTWEBENGINE_DICTIONARIES_PATH",
+	   qEnvironmentVariable("QTWEBENGINE_DICTIONARIES_PATH")).
+     toByteArray());
   qputenv("QT_ENABLE_REGEXP_JIT", "0");
   qputenv("QV4_FORCE_INTERPRETER", "1");
 

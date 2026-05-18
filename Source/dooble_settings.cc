@@ -26,6 +26,7 @@
 */
 
 #include <QDir>
+#include <QFileDialog>
 #include <QFontDialog>
 #include <QKeyEvent>
 #include <QMessageBox>
@@ -169,6 +170,10 @@ dooble_settings::dooble_settings(void):dooble_main_window()
 	  SIGNAL(toggled(bool)),
 	  this,
 	  SLOT(slot_proxy_type_changed(void)));
+  connect(m_ui.qtwebengine_dictionaries_path_select,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slot_select_directory(void)));
   connect(m_ui.remove_all_features_permissions,
 	  SIGNAL(clicked(void)),
 	  this,
@@ -528,8 +533,8 @@ dooble_settings::dooble_settings(void):dooble_main_window()
   prepare_icons();
   prepare_shortcuts();
   prepare_special_files_suffixes();
-  show_qtwebengine_dictionaries_warning_label();
   set_settings_path();
+  show_qtwebengine_dictionaries_warning_label();
   slot_password_changed();
 }
 
@@ -2151,6 +2156,14 @@ void dooble_settings::restore(bool read_database)
 
   m_ui.proxy_user->setText(s_settings.value("proxy_user").toString().trimmed());
   m_ui.proxy_user->setCursorPosition(0);
+  m_ui.qtwebengine_dictionaries_path->setText
+    (QSettings(dooble_settings::setting("home_path").toString() +
+	       QDir::separator() +
+	       "dooble.ini",
+	       QSettings::IniFormat).
+     value("QTWEBENGINE_DICTIONARIES_PATH",
+	   qEnvironmentVariable("QTWEBENGINE_DICTIONARIES_PATH")).
+     toByteArray());
   m_ui.referrer->setChecked(s_settings.value("referrer", false).toBool());
   m_ui.relative_location_character->setText
     (s_settings.value("relative_location_character", "").toString().trimmed());
@@ -2892,6 +2905,16 @@ void dooble_settings::show_qtwebengine_dictionaries_warning_label(void)
 
 void dooble_settings::slot_apply(void)
 {
+  QSettings(dooble_settings::setting("home_path").toString() +
+	    QDir::separator() +
+	    "dooble.ini",
+	    QSettings::IniFormat).
+    setValue("QTWEBENGINE_DICTIONARIES_PATH",
+	     m_ui.qtwebengine_dictionaries_path->text().toUtf8());
+  qputenv
+    ("QTWEBENGINE_DICTIONARIES_PATH",
+     m_ui.qtwebengine_dictionaries_path->text().toUtf8());
+
   if(m_ui.credentials->isChecked() != setting("credentials_enabled").toBool())
     {
       show_panel(dooble_settings::Panels::PRIVACY_PANEL);
@@ -4913,6 +4936,33 @@ void dooble_settings::slot_select_application_font(void)
       m_ui.display_application_font->setText
 	(dialog.selectedFont().toString().trimmed());
     }
+}
+
+void dooble_settings::slot_select_directory(void)
+{
+  QFileDialog dialog(this);
+
+  if(m_ui.qtwebengine_dictionaries_path_select == sender())
+    {
+      dialog.setDirectory(m_ui.qtwebengine_dictionaries_path->text());
+      dialog.setWindowTitle
+	(tr("Dooble: Select QTWEBENGINE_DICTIONARIES_PATH Directory"));
+    }
+
+  dialog.setFileMode(QFileDialog::Directory);
+  dialog.setLabelText(QFileDialog::Accept, tr("Select"));
+  dialog.setOption(QFileDialog::DontUseNativeDialog);
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      QApplication::processEvents();
+
+      if(m_ui.qtwebengine_dictionaries_path_select == sender())
+	m_ui.qtwebengine_dictionaries_path->setText
+	  (dialog.selectedFiles().value(0));
+    }
+
+  QApplication::processEvents();
 }
 
 void dooble_settings::slot_user_agent_item_changed(QTableWidgetItem *item)

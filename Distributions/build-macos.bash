@@ -27,5 +27,5 @@ then
     exit 1
 fi
 
-mv Dooble.dmg Dooble-2026.05.15_Universal.dmg
+mv Dooble.dmg Dooble-2026.06.06_Universal.dmg
 make distclean 2>/dev/null
