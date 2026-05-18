@@ -236,6 +236,9 @@ dooble_settings::dooble_settings(void):dooble_main_window()
     (tr("<html>Dooble will download the file <b>%1</b> shortly after launch "
 	"and determine if an official version is available. See Help -> "
 	"About.</html>").arg(DOOBLE_VERSION_FILE_URL));
+  m_ui.qtwebengine_dictionaries_path->setToolTip
+    (tr("<html>The setting is recorded in %1.</html>").
+     arg(setting("home_path").toString() + QDir::separator() + "dooble.ini"));
   m_ui.shortcuts->setModel(m_shortcuts_model);
 
   auto const language = QLocale::system().language();
